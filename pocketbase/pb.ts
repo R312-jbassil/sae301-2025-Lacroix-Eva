@@ -1,5 +1,8 @@
 import PocketBase from 'pocketbase';
 import type { TypedPocketBase } from "./pocketbase-types";
-
-const pb = new PocketBase('http://127.0.0.1:8090') as TypedPocketBase;
+var path='';
+if(import.meta.env.MODE === 'development')
+    path = 'http://localhost:8090'    //localhost = machine de dev
+else path = 'http://localhost:8030'   //localhost = machine de déploiement
+const pb = new PocketBase(path) as TypedPocketBase;
 export default pb;
