@@ -1,11 +1,170 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Page d'accueil exemple pour le projet
 ---
 
 <Layout>
-	<Welcome />
+  <header class="hero">
+    <div class="inner">
+      <h1>Bienvenue sur le site de démonstration</h1>
+      <p class="lead">
+        Un exemple de page d'accueil en français pour le projet SAE301 —
+        structure simple, claire et responsive.
+      </p>
+      <p>
+        <a class="cta" href="#produits">Voir les produits</a>
+        <a class="muted" href="#contact">Nous contacter</a>
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="features">
+      <h2>Pourquoi ce projet ?</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Rapide</h3>
+          <p>
+            Conçu pour être léger et facile à déployer avec Astro et Tailwind.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Accessible</h3>
+          <p>Structure claire, navigation simple et contenus en français.</p>
+        </article>
+        <article class="card">
+          <h3>Extensible</h3>
+          <p>
+            Ajoutez des pages, composants et une API PocketBase si nécessaire.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="produits">
+      <h2>Nos produits (exemple)</h2>
+      <div class="grid products">
+        <div class="product">
+          <strong>Lunette Classic</strong>
+          <p>Monture légère, idéale pour un usage quotidien.</p>
+        </div>
+        <div class="product">
+          <strong>Lunette Sport</strong>
+          <p>Conçue pour l'effort et la performance.</p>
+        </div>
+        <div class="product">
+          <strong>Lunette Vintage</strong>
+          <p>Style rétro avec verres modernes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>Contact</h2>
+      <p>
+        Besoin d'aide ou envie d'en savoir plus ? Envoyez-nous un message à <a
+          href="mailto:contact@example.com">contact@example.com</a
+        >.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© {new Date().getFullYear()} — Projet SAE301</div>
+  </footer>
+
+  <style>
+    :global(body) {
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        "Segoe UI",
+        Roboto,
+        "Helvetica Neue",
+        Arial;
+      margin: 0;
+      color: #0f172a;
+    }
+    .hero {
+      background: linear-gradient(135deg, #eef2ff 0%, #fff 60%);
+      padding: 4rem 0;
+      text-align: center;
+    }
+    .hero .inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .hero h1 {
+      margin: 0 0 0.5rem;
+      font-size: 2rem;
+    }
+    .hero .lead {
+      margin: 0 0 1.2rem;
+      color: #475569;
+    }
+    .cta {
+      background: #2563eb;
+      color: white;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-right: 0.6rem;
+    }
+    .muted {
+      color: #334155;
+      text-decoration: none;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    #features h2,
+    #produits h2,
+    .contact h2 {
+      margin-top: 0;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+    }
+    .products .product {
+      background: linear-gradient(180deg, #fff, #f8fafc);
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .contact {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #f8fafc;
+      border-radius: 8px;
+    }
+    .site-footer {
+      text-align: center;
+      padding: 1rem 0;
+      color: #475569;
+      border-top: 1px solid #e6eef8;
+      margin-top: 2rem;
+    }
+    @media (max-width: 800px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </Layout>

@@ -1,0 +1,8 @@
+URL de l’application web :
+
+Lien vers dépôt GitHub :
+
+Compte admin du pocketbase sur le VPS :
+
+login : lacroixeva32@gmail.com
+mot de passe : SAE301_Eva
