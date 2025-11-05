@@ -25,7 +25,7 @@ export const POST = async ({ request }) => {
         });
         // Retourne les informations de l'utilisateur authentifié
         const resp = new Response(JSON.stringify({ user: authData.record }), { status: 200 });
-        //resp.headers.append("Set-Cookie", cookie);
+        resp.headers.append("Set-Cookie", cookie);
         return resp;
     } catch (err) {
         // En cas d'erreur d'authentification, retourne une erreur
