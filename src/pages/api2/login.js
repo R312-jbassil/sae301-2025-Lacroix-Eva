@@ -17,7 +17,11 @@ export const POST = async ({ request, cookies }) => {
         //     expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // Expire dans 1 an
         // });
         // Retourne les informations de l'utilisateur authentifié
-        return new Response(JSON.stringify({ user: authData.record }), { status: 200 });
+        return new Response(JSON.stringify({ user: authData.record }), { status: 200 }, {
+            headers: {
+                'Set-Cookie': `pb_auth=${pb.authStore.exportToCookie()}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${365 * 24 * 60 * 60}`
+            }
+        });
     } catch (err) {
         // En cas d'erreur d'authentification, retourne une erreur
         console.error("Erreur de connexion :", err);
