@@ -1,6 +1,7 @@
 ---
 //@ts-nocheck
 import "../styles/global.css";
+import { Image } from "astro:assets";
 
 const user = Astro.locals.user;
 
@@ -10,32 +11,60 @@ if (Astro.locals.user) {
 ---
 
 <!doctype html>
-<html lang="fr" data-theme="SAE301" class="h-full">
+<html lang="fr" data-theme="SAE301">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Titre</title>
+    <title>
+      TaVue – Crée tes lunettes personnalisées | Style & Fabrication française
+    </title>
+    <meta
+      name="description"
+      content="Configurez vos lunettes sur mesure, visualisez-les en temps réel et commandez-les. Élégance minimaliste, fabrication française."
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "TaVue",
+        "url": "https://sae301.eva-lacroix.fr",
+        "description": "Site pour configurer des lunettes personnalisées en ligne.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0.00",
+          "priceCurrency": "EUR",
+          "description": "Configuration gratuite."
+        }
+      }
+    </script>
   </head>
-  <div class="min-h-screen flex items-center justify-center px-4 flex-col h-full glass bg-primary">
+  <div
+    class="min-h-screen flex items-center justify-center px-4 flex-col h-full glass bg-primary"
+  >
     <a href="/" class="fixed top-4 left-4 z-50">
-        <img
-            src="/src/assets/icon/logo.png"
-            alt="SAE301 logo"
-            class="h-10 w-auto"
-            width="40"
-            height="40"
-            loading="eager"
-        />
+      <Image
+        src="/src/assets/icon/logo.png"
+        alt="TaVue logo"
+        width={24}
+        height={10}
+        class="w-24 h-10 lg:w-36 lg:h-16 object-contain"
+        loading="lazy"
+      />
     </a>
-    <div class="card w-full max-w-md shadow-2xl bg-base-100">
+    <div class="card w-sm max-w-md shadow-2xl bg-base-100">
       <div class="card-body">
         <h1
-          class="card-title text-4xl mb-6 justify-center text-center text-primary font-bold"
+          class="text-2xl md:text-3xl lg:text-4xl mb-6 justify-center text-center text-primary font-bold"
         >
           S'inscrire
         </h1>
+        <p class="text-sm text-center text-success mb-2">
+          Inscription 100% gratuite et sans engagement
+        </p>
         <form id="signup-form" class="flex flex-col gap-5">
           <input
             type="text"
@@ -70,8 +99,16 @@ if (Astro.locals.user) {
             >S'inscrire</button
           >
         </form>
+
+        <div
+          class="flex items-center justify-center gap-2 text-sm text-base-300 mt-3"
+        >
+          <span>🔒</span>
+          <span>Connexion sécurisée – Données protégées</span>
+        </div>
+
         <p id="status" class="mt-4 text-center text-error"></p>
-        <p class="mt-2 text-center">
+        <p class="mt-2 text-center text-base">
           Déjà un compte ?
           <a href="/login" class="link link-primary">Se connecter</a>
         </p>
@@ -109,5 +146,6 @@ if (Astro.locals.user) {
       }
     });
   </script>
+
 
 </html>
