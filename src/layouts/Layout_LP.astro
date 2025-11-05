@@ -1,0 +1,56 @@
+---
+import "../styles/global.css";
+
+
+import HeaderLP from "../components/Header_LP.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<!doctype html>
+<html lang="fr" data-theme="SAE301">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>
+      TaVue – Crée tes lunettes personnalisées | Style & Fabrication française
+    </title>
+    <meta
+      name="description"
+      content="Configurez vos lunettes sur mesure, visualisez-les en temps réel et commandez-les. Élégance minimaliste, fabrication française."
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "TaVue",
+        "url": "https://sae301.eva-lacroix.fr",
+        "description": "Site pour configurer des lunettes personnalisées en ligne.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0.00",
+          "priceCurrency": "EUR",
+          "description": "Configuration gratuite."
+        }
+      }
+    </script>
+  </head>
+  
+  <body>
+	<HeaderLP />
+    <slot />
+	<Footer />
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>

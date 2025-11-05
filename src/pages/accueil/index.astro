@@ -1,0 +1,160 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const heroItems = [
+  {
+    title: "Montures uniques",
+    desc: "Chaque paire est créée à ton image — style, forme et teinte personnalisables.",
+  },
+  {
+    title: "Fabrication française",
+    desc: "Un savoir-faire local, pour un confort et une qualité irréprochables.",
+  },
+  {
+    title: "Satisfait ou recréé",
+    desc: "Tu n’aimes pas le résultat ? On refait ta paire sans frais.",
+  },
+];
+
+const featuredProducts = [
+  {
+    name: "Classic",
+    price: "79€",
+    desc: "Élégante, légère et parfaite au quotidien.",
+  },
+];
+---
+
+<Layout>
+  <main class="bg-base-100 text-base-content overflow-hidden">
+    <!-- 🌅 Section Hero -->
+    <section
+      class="relative flex flex-col items-center bg-gradient-to-b from-primary/10 to-base-100 text-center px-10 lg:px-20 pb-5 lg:pb-10"
+    >
+      <div class="mt-10 mb-5 lg:mb-10 lg:mt-20">
+        <h1 class="md:text-5xl lg:text-6xl font-extrabold text-primary mb-4">
+          Bienvenue sur <span class="text-secondary">TaVue</span>
+        </h1>
+        <p class="text-sm lg:text-lg text-base-content/80 mb-6">
+          Découvre, configure et visualise tes lunettes sur mesure en quelques
+          clics.
+          <strong>Personnalisation instantanée, fabrication française</strong>.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/generator" class="btn btn-primary btn-base lg:btn-lg">
+            Générer ma paire
+          </a>
+          <a href="/gallery" class="btn btn-outline btn-base lg:btn-lg">
+            Voir mes créations
+          </a>
+        </div>
+
+        <p class="mt-4 text-sm lg:text-base opacity-70">
+          💬 <strong>+200 créateurs</strong> ont déjà conçu leur paire unique
+        </p>
+      </div>
+    </section>
+
+    <!-- 🧠 Avantages -->
+    <section
+      id="features"
+      class="p-10 pt-0 lg:p-20 lg:pt-0 bg-base-100 text-center"
+    >
+      <h2 class="lg:text-4xl font-bold text-primary mb-12">
+        Pourquoi <span class="text-secondary">Tu vas adorer</span> TaVue
+      </h2>
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 gap-10 px-6 max-w-6xl mx-auto"
+      >
+        {
+          heroItems.map((item) => (
+            <div class="card shadow-md bg-base-200 p-8 hover:shadow-lg transition">
+              <h3 class="lg:text-3xl font-semibold mb-2">{item.title}</h3>
+              <p class="text-base lg:text-lg text-base-content/80">
+                {item.desc}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- 👓 Produits populaires -->
+    <section class="bg-base-200 border-t border-base-300">
+      <div class="container mx-auto px-6 py-16">
+        <div class="flex items-center justify-between flex-wrap gap-3 mb-8">
+          <h2 class="lg:text-4xl font-bold text-primary">
+            Nos modèles préférés
+          </h2>
+          <a href="/gallery" class="text-sm hover:underline text-secondary">
+            Explorer la collection →
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {
+            featuredProducts.map((p) => (
+              <article class="card bg-base-100 p-6 rounded-xl shadow hover:shadow-xl transition">
+                <div class="h-48 bg-slate-100 rounded-md flex items-center justify-center">
+                  <img
+                    src="/src/assets/img/lunettes.svg"
+                    alt={p.name}
+                    class="h-32 object-contain"
+                  />
+                </div>
+                <h3 class="mt-4 lg:text-3xl font-semibold">{p.name}</h3>
+                <p class="text-sm lg:text-base text-base-content/70 mt-1">
+                  {p.desc}
+                </p>
+                <div class="mt-4 flex items-center justify-between">
+                  <span class="text-lg lg:text-xl font-bold text-primary">
+                    {p.price}
+                  </span>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- 💬 Témoignages -->
+    <section class="container mx-auto px-6 py-20 text-center">
+      <h2 class="lg:text-4xl font-bold text-primary mb-10">
+        Ils adorent leur nouvelle vue
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <blockquote class="bg-base-200 p-6 rounded-xl shadow">
+          “Service rapide et montures très confortables.”
+          <br /><span class="font-semibold text-secondary">— Alice</span>
+        </blockquote>
+        <blockquote class="bg-base-200 p-6 rounded-xl shadow">
+          “Le configurateur est super intuitif et précis.”
+          <br /><span class="font-semibold text-secondary">— Marc</span>
+        </blockquote>
+        <blockquote class="bg-base-200 p-6 rounded-xl shadow">
+          “J’ai refait mes lunettes sans stress, tout était fluide.”
+          <br /><span class="font-semibold text-secondary">— Nina</span>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ⚡ CTA final -->
+    <section
+      class="p-10 lg:p-20 bg-gradient-to-r from-primary/90 to-secondary/90 text-center text-primary-content"
+    >
+      <h2 class="lg:text-4xl font-bold mb-6">Prêt à redéfinir ton regard ?</h2>
+      <p class="mb-8 text-sm lg:text-base opacity-90">
+        Lance le configurateur dès maintenant — rapide, gratuit et fun ✨
+      </p>
+      <a
+        href="/generator"
+        class="btn btn-base lg:btn-lg btn-accent text-lg font-semibold"
+      >
+        🚀 Créer ma paire idéale
+      </a>
+    </section>
+  </main>
+</Layout>

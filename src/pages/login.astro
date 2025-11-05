@@ -45,7 +45,7 @@ if (user) {
   <div
     class="min-h-screen flex items-center justify-center px-4 flex-col h-full glass bg-secondary"
   >
-  <a href="/" class="fixed top-4 left-4 z-50">
+    <a href="/" class="fixed top-4 left-4 z-50">
       <Image
         src="/public/icon/logo.png"
         alt="TaVue logo"
@@ -82,7 +82,8 @@ if (user) {
             Connexion
           </button>
         </form>
-        <p id="status" class="mt-4 text-center text-error text-base lg:text-xl"></p>
+        <p id="status" class="mt-4 text-center text-error text-base lg:text-xl">
+        </p>
         <p class="mt-2 text-center text-sm lg:text-base">
           Pas de compte ?
           <a href="/signup" class="link link-primary">Créer un compte</a>
@@ -116,15 +117,35 @@ if (user) {
         credentials: "include", // Permet d'inclure les cookies dans la requête
       });
 
-      // Traitement de la réponse
+      // Ancien Traitement de la réponse
+      //   if (res.ok) {
+      //     const resData = await res.json();
+      //     localStorage.setItem("user", JSON.stringify(resData.user)); // Sauvegarde des infos utilisateur
+      //     status.textContent = "✅ Connexion réussie !";
+      //     // Redirection vers la page d'accueil après un court délai
+      //     window.location.href = "/";
+      //   } else {
+      //     status.textContent = "❌ Email ou mot de passe invalide";
+      //   }
+      // });
+
+      // Nouveau Traitement de la réponse avec redirection intelligente
       if (res.ok) {
         const resData = await res.json();
-        localStorage.setItem("user", JSON.stringify(resData.user)); // Sauvegarde des infos utilisateur
+        localStorage.setItem("user", JSON.stringify(resData.user));
         status.textContent = "✅ Connexion réussie !";
-        // Redirection vers la page d'accueil après un court délai
-        window.location.href = "/";
-      } else {
-        status.textContent = "❌ Email ou mot de passe invalide";
+
+        // 🔥 On récupère le paramètre "redirect" dans l'URL (s'il existe)
+        const params = new URLSearchParams(window.location.search);
+        const redirect = params.get("redirect");
+
+        // Si on vient de l'accueil, redirige vers /accueil
+        if (!redirect || redirect === "/") {
+          window.location.href = "/accueil";
+        } else {
+          // Sinon, retourne vers la page d'origine (ex: /generator)
+          window.location.href = redirect;
+        }
       }
     });
   </script>

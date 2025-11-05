@@ -26,13 +26,25 @@ export const onRequest = async (context, next) => {
     return await next();
   }
 
-  // === Routes classiques ===
+  // Ancienne === Routes classiques ===
+  // if (!context.locals.user) {
+  //   const publicPages = ['/', '/login', '/signup'];
+  //   if (!publicPages.includes(context.url.pathname)) {
+  //     return Response.redirect(new URL('/login', context.url), 303);
+  //   }
+  // }
+
+  // Nouvelle logique avec redirection vers la page initiale après login
   if (!context.locals.user) {
-    const publicPages = ['/', '/login', '/signup'];
-    if (!publicPages.includes(context.url.pathname)) {
-      return Response.redirect(new URL('/login', context.url), 303);
-    }
+  const publicPages = ['/', '/login', '/signup'];
+  if (!publicPages.includes(context.url.pathname)) {
+    // On sauvegarde l'URL dans un paramètre de redirection
+    const redirectUrl = new URL('/login', context.url);
+    redirectUrl.searchParams.set('redirect', context.url.pathname);
+    return Response.redirect(redirectUrl, 303);
   }
+}
+
 
   // ✅ Et surtout : toujours retourner next()
   return await next();

@@ -1,9 +1,209 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import LayoutLP from "../layouts/Layout_LP.astro";
 
-// Page d'accueil exemple pour le projet
+// Données de base
+const heroItems = [
+  {
+    title: "Fabrication française",
+    desc: "Montures conçues et assemblées en France.",
+  },
+  {
+    title: "Sécurisée",
+    desc: "Connexion sécurisée – données protégées",
+  },
+  {
+    title: "Inscription gratuite",
+    desc: "Configurez sans engagement — aucun paiement requis.",
+  },
+];
+
+const products = [
+  {
+    name: "Classic",
+    price: "79€",
+    desc: "Monture quotidienne, élégante et légère.",
+  }
+];
 ---
 
-<Layout>
-	<h1>Bienvenue sur TaVue</h1>
-</Layout>
+<LayoutLP>
+  <main class="bg-base-100 text-base-content overflow-hidden">
+    <!-- 🌅 Section Hero -->
+    <section
+      class="relative flex flex-col items-center bg-gradient-to-b from-primary/10 to-base-100 text-center px-10 lg:px-20 pb-10 lg:pb-20"
+    >
+      <div class="mt-10 mb-5 lg:mb-10 lg:mt-20">
+        <h1 class="md:text-5xl lg:text-6xl font-extrabold text-primary mb-4">
+          Crée tes lunettes, <span class="text-secondary">à ton image</span>
+        </h1>
+        <p class="text-sm lg:text-lg text-base-content/80 mb-6">
+          Configure ton style, choisis tes matériaux, visualise le rendu en 3D —
+          <strong>fabriqué en France</strong>, sans compromis sur la qualité.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/generator" class="btn btn-primary btn-base lg:btn-lg"
+            >Commencer gratuitement</a
+          >
+          <a href="/login" class="btn btn-outline btn-base lg:btn-lg"
+            >Se connecter</a
+          >
+        </div>
+        <p class="mt-4 text-sm lg:text-base opacity-70">
+          💸<strong>Inscription gratuite</strong> – aucune carte requise.
+        </p>
+      </div>
+    </section>
+
+    <!-- 🧠 Section bénéfices -->
+    <section
+      id="features"
+      class="p-10 pt-0 lg:p-20 lg:pt-0 bg-base-100 text-center"
+    >
+      <h2 class="lg:text-4xl font-bold text-primary mb-12">
+        Pourquoi choisir <span class="text-secondary">TaVue</span> ?
+      </h2>
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 gap-10 px-6 max-w-6xl mx-auto"
+      >
+        <div class="card shadow-lg bg-base-200 p-6">
+          <h3 class="lg:text-3xl font-semibold mb-2">Qualité</h3>
+          <p class="text-base lg:text-lg text-base-content/80">
+            Fabrication 100% française, contrôle qualité garanti. <br />
+            <strong>Connexion sécurisée – données protégées</strong> et <strong
+              >modification gratuite avant fabrication</strong
+            >.
+          </p>
+        </div>
+        <div class="card shadow-lg bg-base-200 p-6">
+          <h3 class="lg:text-3xl font-semibold mb-2">Gratuité</h3>
+          <p class="text-base lg:text-lg text-base-content/80">
+            <strong>Inscription gratuite</strong> sans engagement. <br /> Modifier
+            votre création gratuitement avant commande
+          </p>
+        </div>
+        <div class="card shadow-lg bg-base-200 p-6">
+          <h3 class="lg:text-3xl font-semibold mb-2">Personnalisation</h3>
+          <p class="text-base lg:text-lg text-base-content/80">
+            Tu participes à chaque étape. Résultat : <strong
+              >ta paire, ton style, ton empreinte</strong
+            >. C’est toi le designer.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 👓 Section preuve sociale -->
+    <section class="p-10 lg:p-20 bg-base-200 text-center">
+      <h2 class="lg:text-4xl font-bold text-primary mb-6">
+        +200 créateurs ont déjà conçu leur paire unique
+      </h2>
+      <p class="text-sm lg:text-base max-w-xl mx-auto text-base-content/80">
+        Rejoins la communauté de passionnés qui personnalisent leurs lunettes
+        avec goût. Parce que ton regard mérite mieux que du standard.
+      </p>
+      <div class="mt-10 flex flex-wrap justify-center gap-6">
+        <div class="avatar">
+          <div
+            class="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
+          >
+            <img
+              src="https://randomuser.me/api/portraits/women/32.jpg"
+              alt="utilisatrice"
+            />
+          </div>
+        </div>
+        <div class="avatar">
+          <div
+            class="w-16 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2"
+          >
+            <img
+              src="https://randomuser.me/api/portraits/men/45.jpg"
+              alt="utilisateur"
+            />
+          </div>
+        </div>
+        <div class="avatar">
+          <div
+            class="w-16 rounded-full ring ring-accent ring-offset-base-100 ring-offset-2"
+          >
+            <img
+              src="https://randomuser.me/api/portraits/women/44.jpg"
+              alt="utilisatrice"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🕶️ Produits populaires -->
+    <section class="bg-white border-t border-base-200">
+      <div class="container mx-auto px-6 py-16">
+        <div class="flex items-center justify-between flex-wrap gap-3">
+          <h2 class="lg:text-4xl font-bold text-primary">
+            Nos modèles populaires
+          </h2>
+          <a href="/gallery" class="text-sm hover:underline text-secondary"
+            >Voir la galerie →</a
+          >
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {
+            products.map((p) => (
+              <article class="card bg-base-100 p-6 rounded-xl shadow hover:shadow-xl transition">
+                <div class="h-48 bg-slate-100 rounded-md flex items-center justify-center">
+                  <img
+                    src="/src/assets/img/lunettes.svg"
+                    alt={p.name}
+                    class="h-32 object-contain"
+                  />
+                </div>
+                <h3 class="mt-4 lg:text-3xl font-semibold">{p.name}</h3>
+                <p class="text-sm lg:text-base text-base-content/70 mt-1">{p.desc}</p>
+                <div class="mt-4 flex items-center justify-between">
+                  <span class="text-lg lg:text-xl font-bold text-primary">{p.price}</span>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- 💬 Témoignages -->
+    <section class="container mx-auto px-6 py-20 text-center">
+      <h2 class="lg:text-4xl font-bold text-primary mb-10">
+        Ils nous recommandent 💬
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <blockquote class="bg-base-200 p-6 rounded-xl shadow">
+          “Service rapide et montures très confortables.”
+          <br /><span class="font-semibold text-secondary">— Alice</span>
+        </blockquote>
+        <blockquote class="bg-base-200 p-6 rounded-xl shadow">
+          “Le configurateur est super intuitif.”
+          <br /><span class="font-semibold text-secondary">— Marc</span>
+        </blockquote>
+        <blockquote class="bg-base-200 p-6 rounded-xl shadow">
+          “Excellent rapport qualité/prix.”
+          <br /><span class="font-semibold text-secondary">— Nina</span>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ⚡ CTA final -->
+    <section
+      class="p-10 lg:p-20 bg-gradient-to-r from-primary/90 to-secondary/90 text-center text-primary-content"
+    >
+      <h2 class="lg:text-4xl font-bold mb-6">
+        Prêt à créer tes lunettes de rêve ?
+      </h2>
+      <p class="mb-8 text-sm lg:text-base opacity-90">
+        Commence dès maintenant — c’est rapide, gratuit et sans engagement.
+      </p>
+      <a href="/generator" class="btn btn-base lg:btn-lg btn-accent text-lg font-semibold">
+        🚀 Créer ma première paire
+      </a>
+    </section>
+  </main>
+</LayoutLP>
