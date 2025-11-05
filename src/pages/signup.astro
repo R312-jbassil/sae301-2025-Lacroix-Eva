@@ -55,14 +55,14 @@ if (Astro.locals.user) {
         loading="lazy"
       />
     </a>
-    <div class="card w-sm max-w-md shadow-2xl bg-base-100">
+    <div class="card w-xs lg:w-sm max-w-md shadow-2xl bg-base-100">
       <div class="card-body">
         <h1
-          class="text-2xl md:text-3xl lg:text-4xl mb-6 justify-center text-center text-primary font-bold"
+          class="text-2xl md:text-3xl lg:text-4xl mb-2 lg:mb-6 justify-center text-center text-primary font-bold"
         >
           S'inscrire
         </h1>
-        <p class="text-sm text-center text-success mb-2">
+        <p class="text-xs lg:text-sm text-center text-success mb-1 lg:mb-2">
           Inscription 100% gratuite et sans engagement
         </p>
         <form id="signup-form" class="flex flex-col gap-5">
@@ -71,44 +71,44 @@ if (Astro.locals.user) {
             name="username"
             placeholder="Nom d'utilisateur"
             required
-            class="input input-bordered input-primary w-full"
+            class="input input-bordered input-primary w-full text-xs lg:text-sm"
           />
           <input
             type="email"
             name="email"
             placeholder="Email"
             required
-            class="input input-bordered input-primary w-full"
+            class="input input-bordered input-primary w-full text-xs lg:text-sm"
           />
           <input
             type="password"
             name="password"
             placeholder="Mot de passe"
             required
-            class="input input-bordered input-primary w-full"
+            class="input input-bordered input-primary w-full text-xs lg:text-sm"
           />
           <input
             type="password"
             name="passwordConfirm"
             placeholder="Confirmer le mot de passe"
             required
-            class="input input-bordered input-primary w-full"
+            class="input input-bordered input-primary w-full text-xs lg:text-sm"
           />
 
-          <button type="submit" class="btn btn-primary w-full btn-lg"
+          <button type="submit" class="btn btn-primary w-full btn-base lg:btn-lg"
             >S'inscrire</button
           >
         </form>
 
         <div
-          class="flex items-center justify-center gap-2 text-sm text-base-300 mt-3"
+          class="flex items-center justify-center gap-2 text-xs lg:text-sm text-base-300 mt-3"
         >
           <span>🔒</span>
           <span>Connexion sécurisée – Données protégées</span>
         </div>
 
         <p id="status" class="mt-4 text-center text-error"></p>
-        <p class="mt-2 text-center text-base">
+        <p class="mt-2 text-center text-sm lg:text-base">
           Déjà un compte ?
           <a href="/login" class="link link-primary">Se connecter</a>
         </p>
