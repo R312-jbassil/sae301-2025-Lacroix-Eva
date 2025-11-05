@@ -95,7 +95,7 @@ if (user) {
       const formData = new FormData(form);
 
       // Envoi des informations au serveur via l'API /api/login
-      const res = await fetch("https://sae301.eva-lacroix.fr:443/api2/login", {
+      const res = await fetch("/api2/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
