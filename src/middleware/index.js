@@ -12,9 +12,9 @@ export const onRequest = async (context, next) => {
   }
 
   // === Routes API ===
-  if (context.url.pathname.startsWith('/api/')) {
+  if (context.url.pathname.startsWith('/api2/')) {
     // Exemptions : login, signup, logout
-    const publicAPIs = ['/api/login', '/api/signup', '/api/logout'];
+    const publicAPIs = ['/api2/login', '/api2/signup', '/api2/logout'];
     if (!context.locals.user && !publicAPIs.includes(context.url.pathname)) {
       return new Response(
         JSON.stringify({ error: "Unauthorized" }),
