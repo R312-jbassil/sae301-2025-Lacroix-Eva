@@ -1,0 +1,80 @@
+<header>
+  <nav class="navbar bg-primary text-primary-content shadow-md p-4">
+    <div class="navbar-start">
+      <div class="dropdown lg:hidden">
+        <label
+          tabindex="0"
+          class="btn btn-ghost btn-circle fixed right-4 top-4 z-50 lg:hidden"
+          aria-label="Ouvrir le menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </label>
+        <ul
+          tabindex="0"
+          class="menu menu-compact dropdown-content fixed right-4 mt-6 p-2 shadow bg-secondary rounded-box w-52 text-secondary-content"
+        >
+          <li><a href="/generator">Créer ma paire</a></li>
+          <li><a href="/gallery">Galerie</a></li>
+          <li>
+            <form method="POST" action="/api/logout">
+              <button
+                type="submit"
+                class="btn btn-outline btn-base bg-accent text-accent-content w-full"
+                >Déconnexion</button
+              >
+            </form>
+          </li>
+        </ul>
+      </div>
+
+      <a href="/" aria-label="Accueil" class="flex items-center gap-3">
+        <img
+          src="/src/assets/icon/logo.png"
+          alt="Logo"
+          class="w-24 h-10 lg:w-36 lg:h-16"
+        />
+      </a>
+    </div>
+
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1 gap-3">
+        <li>
+          <a
+            href="/generator"
+            class="btn btn-ghost rounded text-2xl hover:bg-secondary hover:text-secondary-content"
+            >Créer ma paire</a
+          >
+        </li>
+        <li>
+          <a
+            href="/gallery"
+            class="btn btn-ghost rounded text-2xl hover:bg-secondary hover:text-secondary-content"
+            >Galerie</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <div class="navbar-end hidden lg:flex">
+      <form method="POST" action="/api/logout">
+        <button
+          type="submit"
+          class="btn btn-outline btn-xl bg-accent text-accent-content"
+          >Déconnexion</button
+        >
+      </form>
+    </div>
+  </nav>
+</header>

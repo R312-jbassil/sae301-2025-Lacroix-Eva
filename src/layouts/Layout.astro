@@ -1,91 +1,48 @@
 ---
 import "../styles/global.css";
+
+
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-theme="SAE301">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Accueil - Projet SAE301</title>
+    <title>
+      TaVue – Crée tes lunettes personnalisées | Style & Fabrication française
+    </title>
+    <meta
+      name="description"
+      content="Configurez vos lunettes sur mesure, visualisez-les en temps réel et commandez-les. Élégance minimaliste, fabrication française."
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "TaVue",
+        "url": "https://sae301.eva-lacroix.fr",
+        "description": "Site pour configurer des lunettes personnalisées en ligne.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0.00",
+          "priceCurrency": "EUR",
+          "description": "Configuration gratuite."
+        }
+      }
+    </script>
   </head>
+  
   <body>
-	<nav class="site-nav" role="navigation" aria-label="Navigation principale">
-		<div class="nav-container">
-			<a class="brand" href="/">SAE301</a>
-			<ul class="nav-list">
-				<li>
-					<a href="/testpb" class="nav-link">Test Pb</a>
-					<a href="/login" class="nav-link">Login</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
-
-	<style>
-		.site-nav {
-			background: linear-gradient(90deg, #0f172a, #1e293b);
-			color: #fff;
-			box-shadow: 0 2px 6px rgba(2,6,23,0.4);
-		}
-
-		.nav-container {
-			max-width: 1100px;
-			margin: 0 auto;
-			padding: 0.6rem 1rem;
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			gap: 1rem;
-		}
-
-		.brand {
-			color: #fff;
-			font-weight: 700;
-			text-decoration: none;
-			font-size: 1rem;
-		}
-
-		.nav-list {
-			list-style: none;
-			margin: 0;
-			padding: 0;
-			display: flex;
-			gap: 0.5rem;
-			align-items: center;
-		}
-
-		.nav-link {
-			color: #e6eef8;
-			text-decoration: none;
-			padding: 0.45rem 0.75rem;
-			border-radius: 6px;
-			transition: background 150ms ease, transform 150ms ease;
-			font-size: 0.95rem;
-		}
-
-		.nav-link:hover,
-		.nav-link:focus {
-			background: rgba(255, 255, 255, 0.06);
-			transform: translateY(-1px);
-			outline: none;
-		}
-
-		@media (max-width: 600px) {
-			.nav-container {
-				padding: 0.5rem;
-			}
-			.nav-list {
-				gap: 0.25rem;
-			}
-			.brand {
-				font-size: 0.95rem;
-			}
-		}
-	</style>
+	<Header />
     <slot />
+	<Footer />
   </body>
 </html>
 
