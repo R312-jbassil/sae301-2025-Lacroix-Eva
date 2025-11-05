@@ -22,7 +22,7 @@ export const POST = async ({ request, cookies }) => {
             maxAge: 365 * 24 * 60 * 60, // 1 an
         });
         // Retourne les informations de l'utilisateur authentifié
-        const resp = Response(JSON.stringify({ user: authData.record }), { status: 200 });
+        const resp = new Response(JSON.stringify({ user: authData.record }), { status: 200 });
         resp.headers.append("Set-Cookie", cookie);
         return resp;
     } catch (err) {
