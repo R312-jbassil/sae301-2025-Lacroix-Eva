@@ -10,7 +10,7 @@ if (Astro.locals.user) {
 ---
 
 <!doctype html>
-<html lang=fr data-theme="SAE301" class="h-full">
+<html lang="fr" data-theme="SAE301" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -18,13 +18,17 @@ if (Astro.locals.user) {
     <meta name="generator" content={Astro.generator} />
     <title>Titre</title>
   </head>
-  <header
-    class="w-full flex justify-end p-4 bg-base-200 shadow-md rounded-b-lg"
-  >
-  </header>
-  <div
-    class="min-h-screen flex items-center justify-center bg-accent"
-  >
+  <div class="min-h-screen flex items-center justify-center px-4 flex-col h-full glass bg-primary">
+    <a href="/" class="fixed top-4 left-4 z-50">
+        <img
+            src="/src/assets/icon/logo.png"
+            alt="SAE301 logo"
+            class="h-10 w-auto"
+            width="40"
+            height="40"
+            loading="eager"
+        />
+    </a>
     <div class="card w-full max-w-md shadow-2xl bg-base-100">
       <div class="card-body">
         <h1
@@ -105,4 +109,5 @@ if (Astro.locals.user) {
       }
     });
   </script>
+
 </html>
