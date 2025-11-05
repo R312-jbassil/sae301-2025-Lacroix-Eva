@@ -1,7 +1,7 @@
 import  pb  from "../../../pocketbase/pb";
 import { Collections } from "../../../pocketbase/pocketbase-types";
 
-export const POST = async ({ request, cookies }) => {
+export const POST = async ({ request }) => {
     // Récupère l'email et le mot de passe envoyés dans la requête
     const { email, password } = await request.json();
     try {
@@ -19,7 +19,9 @@ export const POST = async ({ request, cookies }) => {
         const cookie = pb.authStore.exportToCookie({
             httpOnly: true,
             sameSite: "Strict",
-            maxAge: 365 * 24 * 60 * 60, // 1 an
+            maxAge: 365 * 24 * 60 * 60, // 1 
+            path: "/",
+            secure: true,
         });
         // Retourne les informations de l'utilisateur authentifié
         const resp = new Response(JSON.stringify({ user: authData.record }), { status: 200 });
