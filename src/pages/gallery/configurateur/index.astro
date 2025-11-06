@@ -1,0 +1,559 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+---
+
+<Layout>
+  <main class="min-h-screen bg-gradient-to-b from-base-100 to-base-200">
+    <div class="container mx-auto px-4 py-8">
+      <!-- En-tête -->
+      <div class="text-center mb-8">
+        <h1 class="text-4xl lg:text-5xl font-bold text-primary mb-3">
+          Configurateur de Lunettes
+        </h1>
+        <p class="text-base-content/80 text-lg">
+          Personnalisez votre paire selon vos goûts
+        </p>
+      </div>
+
+      <!-- Grille principale -->
+      <div class="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+        <!-- Panneau de prévisualisation -->
+        <div class="order-2 lg:order-1">
+          <div class="card bg-base-100 shadow-xl sticky top-8">
+            <div class="card-body">
+              <h2 class="card-title text-primary mb-4">Aperçu en direct</h2>
+
+              <!-- SVG Container -->
+              <div
+                id="svg-preview"
+                class="bg-base-200 rounded-xl p-8 min-h-[400px] flex items-center justify-center"
+              >
+                <svg
+                  id="lunettes-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 595.28 841.89"
+                  class="w-full h-auto max-h-[500px]"
+                >
+                  <defs>
+                    <style id="svg-styles">
+                      .cls-1 {
+                        fill: #706f6f;
+                        mix-blend-mode: multiply;
+                      }
+                      .cls-2 {
+                        isolation: isolate;
+                      }
+                      .cls-3,
+                      .cls-4 {
+                        fill: #ffffff;
+                      }
+                      .cls-4 {
+                        stroke: #1d1d1b;
+                        stroke-miterlimit: 10;
+                        stroke-width: 0.5px;
+                      }
+                      .cls-5 {
+                        fill: none;
+                        opacity: 0.75;
+                      }
+                    </style>
+                  </defs>
+                  <g class="cls-2" id="main-group">
+                    <g id="branches">
+                      <path
+                        class="cls-4"
+                        d="M108.83,155.14s49.35-5.57,54.93-8.76,11.14-7.96,19.5-9.55,64.48-11.14,64.48-11.14c0,0,7.16-1.99,17.51,5.57s33.04,31.84,39.4,31.05c6.37-.8,9.55-9.55,7.56-13.53s-40.67-32.75-47.36-34.63c-9.53-2.68-21.89-2.39-37.02,0-15.12,2.39-116.22,23.34-116.22,23.34,0,0-13.13,6.12-2.79,17.66Z"
+                      ></path>
+                      <path
+                        class="cls-1"
+                        d="M308.24,150.76s-.31,6.15-3.98,5.57c-4.97-.78-35.82-33.83-46.17-32.24,0,0,8.53,2.71,18.46,11.64,6.51,5.86,34.42,37.85,31.69,15.03Z"
+                      ></path>
+                      <path
+                        class="cls-4"
+                        d="M374.79,179.65l90.54-29.78s22.13-5.63,25.35-4.02,17.71,30.58,17.71,33.8-2.42,14.01-5.63,14.89c-2.33.64-5.33.11-6.84-4.21-1.41-4.02-6.84-31.73-12.47-31.47s-50.7,15.95-50.7,15.95c0,0-13.28,6.44-18.91,11.27s-32.19,11.27-32.19,11.27c0,0-9.66-7.65-6.84-17.71Z"
+                      ></path>
+                      <path
+                        class="cls-1"
+                        d="M381.34,180.1s102.27-35.19,107.85-31.99c0,0-18.2,2.49-41.76,11.88s-66.09,22.03-66.09,22.03v-1.92Z"
+                      ></path>
+                      <path
+                        class="cls-1"
+                        d="M485.36,158.06s3.26,0,4.98,3.45,9.77,24.71,9.77,24.71c0,0,.77,4.98,5.17-2.68,0,0-3.07,9.56-5.36,6.79s-9.77-26.33-9.77-26.33c0,0-2.87-6.74-4.79-5.94Z"
+                      ></path>
+                    </g>
+                    <g id="monture">
+                      <path
+                        class="cls-4"
+                        d="M385.31,180.81c-.24-3.41-9.57-5.22-12.71-6.4-3.14-1.18-15.7,1.96-15.7,1.96-12.17-3.14-54.55-9.03-78.88-9.03s-32.57,11.38-35.32,10.99c-2.75-.39-17.27-.78-23.55-1.96-6.28-1.18-5.1-14.13-39.25-26.48-34.14-12.35-68.29-12.42-68.29-12.42-13.35,4.66-6.76,18.49-6.76,18.49l2.05,6.35c4.32,2.03,3.14,10.52,4.71,23.08s7.46,28.65,14.13,38.46c6.67,9.81,31.79,20.8,44.35,21.19s23.55-1.96,31.79-15.31c8.24-13.34,16.88-36.89,16.88-36.89l10.2,1.57s2.91.31,5.35,3.09,4.43,8.03,7.6,17.31c7.56,22.1,25.12,39.25,25.12,39.25,0,0,5.6,7.43,33.44,12.66,23.08,4.34,42.7-2.46,42.7-2.46,17.72-7.17,21.63-44.96,21.63-44.96,0,0,1.83-13.3,7.81-16.65,7.37-4.14,8.27-4.44,12.71-5.32,3.61-.71.24-13.13,0-16.54ZM190.5,231.32c-9.42,5.1-32.18,7.06-46.31-3.92-14.13-10.99-20.8-30.22-22.76-52.98s7.1-25.23,7.1-25.23c0,0,14.88-.67,34.11,4.03,19.23,4.71,40.42,18.05,40.82,26.69.39,8.63-3.53,46.31-12.95,51.41ZM344.73,255.65c-9.03,4.32-21.47,4.71-31.93,3.92-10.46-.78-37.54-1.57-47.35-31.4,0,0-2.75-14.13-5.1-17.27-2.35-3.14-9.42-14.48-9.42-18.43,0-8.23,7.15-12.97,7.15-12.97,0,0,8.16-5.1,18.75-5.1,10.6,0,64.75,2.75,72.21,12.95,7.46,10.2,7.06,21.98,8.24,31.4,1.18,9.42-3.53,32.57-12.56,36.89Z"
+                      ></path>
+                    </g>
+                    <g id="verres">
+                      <path
+                        class="cls-5"
+                        d="M116.32,162.87c-.88,6.05.4,37.41,11.44,55.31s37.04,21.35,41.37,21.31,18.51,1.02,24.47-9.27c4.97-8.59,13.17-43.48,9.12-53.05-6.26-14.82-40.4-24.02-40.4-24.02,0,0-26.85-5.46-33.82-4.46,0,0-9.97-.96-12.17,14.17Z"
+                      ></path>
+                      <path
+                        class="cls-5"
+                        d="M247.32,192.54s-1.09-9.55,19.57-16.69c11.76-4.06,60.46,3.23,60.46,3.23,0,0,19.09,4.06,21.71,8.28,2.62,4.22,9.46,17.24,8.29,37.97-1.14,20.21-7.31,26.8-12.61,30.31,0,0-7.10,4.93-21.34,5.93-26.65,1.88-37.01-1.14-46.19-7.73-29.88-21.46-29.88-61.3-29.88-61.3Z"
+                      ></path>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- Actions -->
+              <div class="card-actions justify-end mt-6 gap-2">
+                <button id="reset-btn" class="btn btn-outline btn-sm">
+                  Réinitialiser
+                </button>
+                <button id="download-btn" class="btn btn-primary btn-sm">
+                  Télécharger SVG
+                </button>
+                <button id="save-btn" class="btn btn-accent btn-sm">
+                  Enregistrer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panneau de configuration -->
+        <div class="order-1 lg:order-2 space-y-6">
+          <!-- Couleurs de la monture -->
+          <div class="card bg-base-100 shadow-lg">
+            <div class="card-body">
+              <h3 class="card-title text-secondary mb-4">🎨 Couleurs</h3>
+
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text font-semibold">Monture</span>
+                </label>
+                <div class="flex gap-3">
+                  <input
+                    type="color"
+                    id="frame-color"
+                    value="#ffffff"
+                    class="w-16 h-16 rounded-lg cursor-pointer border-2 border-base-300"
+                  />
+                  <input
+                    type="text"
+                    id="frame-color-text"
+                    value="#ffffff"
+                    class="input input-bordered flex-1"
+                  />
+                </div>
+              </div>
+
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text font-semibold">Contour monture</span>
+                </label>
+                <div class="flex gap-3">
+                  <input
+                    type="color"
+                    id="stroke-color"
+                    value="#1d1d1b"
+                    class="w-16 h-16 rounded-lg cursor-pointer border-2 border-base-300"
+                  />
+                  <input
+                    type="text"
+                    id="stroke-color-text"
+                    value="#1d1d1b"
+                    class="input input-bordered flex-1"
+                  />
+                </div>
+              </div>
+
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text font-semibold">Verres (teinte)</span>
+                </label>
+                <div class="flex gap-3">
+                  <input
+                    type="color"
+                    id="lens-color"
+                    value="#000000"
+                    class="w-16 h-16 rounded-lg cursor-pointer border-2 border-base-300"
+                  />
+                  <input
+                    type="text"
+                    id="lens-color-text"
+                    value="#000000"
+                    class="input input-bordered flex-1"
+                  />
+                </div>
+              </div>
+
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text font-semibold"
+                    >Opacité des verres</span
+                  >
+                  <span class="label-text-alt" id="lens-opacity-value">75%</span
+                  >
+                </label>
+                <input
+                  type="range"
+                  id="lens-opacity"
+                  min="0"
+                  max="100"
+                  value="75"
+                  class="range range-primary"
+                />
+              </div>
+            </div>
+          </div>
+
+          <p>ou</p>
+
+          <!-- Matériaux prédéfinis -->
+          <div class="card bg-base-100 shadow-lg">
+            <div class="card-body">
+              <h3 class="card-title text-secondary mb-4">✨ Matériaux</h3>
+
+              <div class="grid grid-cols-2 gap-3">
+                <button
+                  class="btn btn-outline material-preset"
+                  data-frame="#000000"
+                  data-stroke="#1d1d1b"
+                >
+                  Noir mat
+                </button>
+                <button
+                  class="btn btn-outline material-preset"
+                  data-frame="#8B4513"
+                  data-stroke="#654321"
+                >
+                  Bois naturel
+                </button>
+                <button
+                  class="btn btn-outline material-preset"
+                  data-frame="#C0C0C0"
+                  data-stroke="#808080"
+                >
+                  Métal argenté
+                </button>
+                <button
+                  class="btn btn-outline material-preset"
+                  data-frame="#FFD700"
+                  data-stroke="#DAA520"
+                >
+                  Or rose
+                </button>
+                <button
+                  class="btn btn-outline material-preset"
+                  data-frame="#4169E1"
+                  data-stroke="#1E3A8A"
+                >
+                  Bleu océan
+                </button>
+                <button
+                  class="btn btn-outline material-preset"
+                  data-frame="#DC143C"
+                  data-stroke="#8B0000"
+                >
+                  Rouge passion
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dimensions -->
+          <div class="card bg-base-100 shadow-lg">
+            <div class="card-body">
+              <h3 class="card-title text-secondary mb-4">📏 Dimensions</h3>
+
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text font-semibold">Largeur du pont</span>
+                  <span class="label-text-alt" id="bridge-width-value"
+                    >100%</span
+                  >
+                </label>
+                <input
+                  type="range"
+                  id="bridge-width"
+                  min="80"
+                  max="120"
+                  value="100"
+                  class="range range-primary"
+                />
+                <div class="w-full flex justify-between text-xs px-2 mt-1">
+                  <span>Étroit</span>
+                  <span>Normal</span>
+                  <span>Large</span>
+                </div>
+              </div>
+
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text font-semibold">Taille des verres</span
+                  >
+                  <span class="label-text-alt" id="lens-size-value">100%</span>
+                </label>
+                <input
+                  type="range"
+                  id="lens-size"
+                  min="85"
+                  max="115"
+                  value="100"
+                  class="range range-primary"
+                />
+                <div class="w-full flex justify-between text-xs px-2 mt-1">
+                  <span>Petit</span>
+                  <span>Moyen</span>
+                  <span>Grand</span>
+                </div>
+              </div>
+
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text font-semibold"
+                    >Épaisseur du contour</span
+                  >
+                  <span class="label-text-alt" id="stroke-width-value"
+                    >0.5px</span
+                  >
+                </label>
+                <input
+                  type="range"
+                  id="stroke-width"
+                  min="0.1"
+                  max="2"
+                  step="0.1"
+                  value="0.5"
+                  class="range range-primary"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  // Configuration par défaut
+  const defaultConfig = {
+    frameColor: "#ffffff",
+    strokeColor: "#1d1d1b",
+    lensColor: "#000000",
+    lensOpacity: 0.75,
+    bridgeWidth: 1,
+    lensSize: 1,
+    strokeWidth: 0.5,
+  };
+
+  let currentConfig = { ...defaultConfig };
+
+  // Éléments du DOM
+  const svg = document.getElementById("lunettes-svg");
+  const mainGroup = document.getElementById("main-group");
+  const svgStyles = document.getElementById("svg-styles");
+
+  const frameColorInput = document.getElementById("frame-color");
+  const frameColorText = document.getElementById("frame-color-text");
+  const strokeColorInput = document.getElementById("stroke-color");
+  const strokeColorText = document.getElementById("stroke-color-text");
+  const lensColorInput = document.getElementById("lens-color");
+  const lensColorText = document.getElementById("lens-color-text");
+  const lensOpacityInput = document.getElementById("lens-opacity");
+  const lensOpacityValue = document.getElementById("lens-opacity-value");
+
+  const bridgeWidthInput = document.getElementById("bridge-width");
+  const bridgeWidthValue = document.getElementById("bridge-width-value");
+  const lensSizeInput = document.getElementById("lens-size");
+  const lensSizeValue = document.getElementById("lens-size-value");
+  const strokeWidthInput = document.getElementById("stroke-width");
+  const strokeWidthValue = document.getElementById("stroke-width-value");
+
+  const resetBtn = document.getElementById("reset-btn");
+  const downloadBtn = document.getElementById("download-btn");
+  const saveBtn = document.getElementById("save-btn");
+  const materialPresets = document.querySelectorAll(".material-preset");
+
+  // Fonction de mise à jour du SVG
+  function updateSVG() {
+    // Mise à jour des styles CSS dans le SVG
+    svgStyles.textContent = `
+      .cls-1 {
+        fill: #706f6f;
+        mix-blend-mode: multiply;
+      }
+      .cls-2 {
+        isolation: isolate;
+      }
+      .cls-3, .cls-4 {
+        fill: ${currentConfig.frameColor};
+      }
+      .cls-4 {
+        stroke: ${currentConfig.strokeColor};
+        stroke-miterlimit: 10;
+        stroke-width: ${currentConfig.strokeWidth}px;
+      }
+      .cls-5 {
+        fill: ${currentConfig.lensColor};
+        opacity: ${currentConfig.lensOpacity};
+      }
+    `;
+
+    // Transformation de la monture (largeur pont et taille verres)
+    const scaleX = currentConfig.bridgeWidth;
+    const scaleY = currentConfig.lensSize;
+    mainGroup.setAttribute(
+      "transform",
+      `translate(${297.64 * (1 - scaleX)}, ${420.945 * (1 - scaleY)}) scale(${scaleX}, ${scaleY})`
+    );
+  }
+
+  // Synchronisation couleur picker et input texte
+  function syncColorInputs(colorInput, textInput) {
+    colorInput.addEventListener("input", (e) => {
+      textInput.value = e.target.value;
+      currentConfig[colorInput.id.replace("-", "").replace("color", "Color")] =
+        e.target.value;
+      updateSVG();
+    });
+
+    textInput.addEventListener("input", (e) => {
+      const value = e.target.value;
+      if (/^#[0-9A-F]{6}$/i.test(value)) {
+        colorInput.value = value;
+        currentConfig[
+          colorInput.id.replace("-", "").replace("color", "Color")
+        ] = value;
+        updateSVG();
+      }
+    });
+  }
+
+  syncColorInputs(frameColorInput, frameColorText);
+  syncColorInputs(strokeColorInput, strokeColorText);
+  syncColorInputs(lensColorInput, lensColorText);
+
+  // Opacité des verres
+  lensOpacityInput.addEventListener("input", (e) => {
+    const value = parseInt(e.target.value) / 100;
+    currentConfig.lensOpacity = value;
+    lensOpacityValue.textContent = `${e.target.value}%`;
+    updateSVG();
+  });
+
+  // Largeur du pont
+  bridgeWidthInput.addEventListener("input", (e) => {
+    const value = parseInt(e.target.value) / 100;
+    currentConfig.bridgeWidth = value;
+    bridgeWidthValue.textContent = `${e.target.value}%`;
+    updateSVG();
+  });
+
+  // Taille des verres
+  lensSizeInput.addEventListener("input", (e) => {
+    const value = parseInt(e.target.value) / 100;
+    currentConfig.lensSize = value;
+    lensSizeValue.textContent = `${e.target.value}%`;
+    updateSVG();
+  });
+
+  // Épaisseur contour
+  strokeWidthInput.addEventListener("input", (e) => {
+    const value = parseFloat(e.target.value);
+    currentConfig.strokeWidth = value;
+    strokeWidthValue.textContent = `${value}px`;
+    updateSVG();
+  });
+
+  // Presets matériaux
+  materialPresets.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const frameColor = btn.dataset.frame;
+      const strokeColor = btn.dataset.stroke;
+
+      frameColorInput.value = frameColor;
+      frameColorText.value = frameColor;
+      strokeColorInput.value = strokeColor;
+      strokeColorText.value = strokeColor;
+
+      currentConfig.frameColor = frameColor;
+      currentConfig.strokeColor = strokeColor;
+
+      updateSVG();
+    });
+  });
+
+  // Réinitialiser
+  resetBtn.addEventListener("click", () => {
+    currentConfig = { ...defaultConfig };
+
+    frameColorInput.value = defaultConfig.frameColor;
+    frameColorText.value = defaultConfig.frameColor;
+    strokeColorInput.value = defaultConfig.strokeColor;
+    strokeColorText.value = defaultConfig.strokeColor;
+    lensColorInput.value = defaultConfig.lensColor;
+    lensColorText.value = defaultConfig.lensColor;
+    lensOpacityInput.value = defaultConfig.lensOpacity * 100;
+    lensOpacityValue.textContent = `${defaultConfig.lensOpacity * 100}%`;
+    bridgeWidthInput.value = defaultConfig.bridgeWidth * 100;
+    bridgeWidthValue.textContent = `${defaultConfig.bridgeWidth * 100}%`;
+    lensSizeInput.value = defaultConfig.lensSize * 100;
+    lensSizeValue.textContent = `${defaultConfig.lensSize * 100}%`;
+    strokeWidthInput.value = defaultConfig.strokeWidth;
+    strokeWidthValue.textContent = `${defaultConfig.strokeWidth}px`;
+
+    updateSVG();
+  });
+
+  // Télécharger
+  downloadBtn.addEventListener("click", () => {
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const blob = new Blob([svgData], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `lunettes_personnalisees_${Date.now()}.svg`;
+    link.click();
+    URL.revokeObjectURL(url);
+  });
+
+  // Enregistrer (API)
+  saveBtn.addEventListener("click", async () => {
+    const name = prompt("Donnez un nom à votre création :");
+    if (!name) return;
+
+    const svgCode = new XMLSerializer().serializeToString(svg);
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+    try {
+      const res = await fetch("/api2/saveSVG", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          code_svg: svgCode,
+          chat_history: JSON.stringify([
+            {
+              role: "system",
+              content: `Configuration: ${JSON.stringify(currentConfig)}`,
+            },
+          ]),
+          user: user.id,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        alert("✅ Lunettes sauvegardées avec succès !");
+        window.location.href = "/gallery";
+      } else {
+        alert("❌ Erreur lors de la sauvegarde");
+      }
+    } catch (error) {
+      console.error("Erreur:", error);
+      alert("❌ Erreur de connexion");
+    }
+  });
+
+  // Initialisation
+  updateSVG();
+</script>

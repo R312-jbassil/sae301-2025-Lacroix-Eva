@@ -53,48 +53,36 @@ const svgList = listRes.items ?? [];
     <h2 class="md:text-4xl lg:text-5xl font-extrabold text-primary mb-10 text-left">
       Modèle phare
     </h2>
-    {
-      (() => {
-        const target = svgList.find((s) => s.id === "h9youvdeg5394ah");
-        return !target ? (
-          <div class="alert alert-info">Aucun modèle trouvé.</div>
-        ) : (
-          <section class="flex flex-col md:flex-row gap-8 bg-base-200 rounded-3xl shadow-lg p-6 md:p-10">
-            <div class="flex-1 flex justify-center hover:scale-[1.03] transition-transform" set:html={target.code_svg} />
+<section class="flex flex-col md:flex-row gap-8 bg-base-200 rounded-3xl shadow-lg p-6 md:p-10">
+            <div class="flex-1 flex justify-center hover:scale-[1.03] transition-transform">
+              <img
+                    src="/src/assets/img/lunettes.svg"
+                    alt="Modèle Classic"
+                  />
+            </div>
+
             <div>
               <h3 class="lg:text-3xl font-bold mb-3 text-primary">
-                {target.name || "Modèle exclusif"}
+                Classic
               </h3>
               <p class="text-base lg:text-lg text-base-content/80 mb-4">
-                Créé le {new Date(target.created).toLocaleDateString()} — Un
-                design alliant technologie et élégance.
+                Créé le 04/10/2025 — Un design alliant technologie et élégance.
               </p>
 
-              <!-- 💡 Nudge : Rareté -->
               <p class="text-error text-sm mb-3 italic">
                 ⚡ Édition limitée – disponible pour une durée restreinte.
               </p>
 
               <div class="flex gap-3 flex-wrap">
                 <a
-                  class="btn btn-sm btn-outline"
-                  href={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(target.code_svg)}`}
-                  download={`${(target.name || "svg").replace(/\s+/g, "_")}.svg`}
-                >
-                  Télécharger
-                </a>
-                <a
                   class="btn btn-sm btn-accent text-accent-content"
-                  href={`/gallery/configurateur.astro`}
+                  href={`/gallery/configurateur`}
                 >
                   Personnaliser
                 </a>
               </div>
             </div>
           </section>
-        );
-      })()
-    }
 
     <!-- Galerie personnelle -->
     <h2 class="md:text-4xl lg:text-5xl font-extrabold text-primary mt-20 mb-10 text-left">
