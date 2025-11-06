@@ -24,6 +24,7 @@ if (Array.isArray(svg?.chat_history)) {
 }
 ---
 
+<!doctype html>
 <html lang="fr" data-theme="SAE301">
   <head>
     <meta charset="UTF-8" />
@@ -55,70 +56,138 @@ if (Array.isArray(svg?.chat_history)) {
       }
     </script>
   </head>
+
   <body>
     <Header />
-    <div class="flex flex-col h-screen">
-      <div
-        class="bg-base-200 h-1/2 flex flex-col justify-center items-center p-4"
-      >
-        <h2 class="text-lg font-bold mb-2">Aperçu de la création</h2>
-        <div id="svg-preview" class="w-full flex justify-center">
-          <div set:html={svg?.code_svg} />
-        </div>
-      </div>
 
-      <div class="divider">Historique de chat</div>
+    <main class="container mx-auto p-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Left: Preview -->
+        <section class="bg-base-200 rounded-lg p-6 flex flex-col gap-4">
+          <div class="flex items-start justify-between">
+            <h4 class="lg:text-2xl font-semibold mb-2">Aperçu</h4>
+            <div class="flex gap-2">
+              <button id="download-svg" class="btn btn-sm">Télécharger</button>
+            </div>
+          </div>
 
-      <div
-        id="chat-history"
-        class="flex flex-col gap-4 w-full mb-20 overflow-y-auto flex-grow p-4"
-      >
-        {
-          Array.isArray(history) && history.length > 0 ? (
-            history.map((msg: { role: string; content: string }) => (
-              <div
-                class={`chat ${msg.role === "user" ? "chat-start" : "chat-end"}`}
-              >
-                <div
-                  class={`chat-bubble ${msg.role === "user" ? "bg-primary text-primary-content" : "bg-secondary text-secondary-content"}`}
-                >
-                  <pre class="whitespace-pre-wrap">{msg.content}</pre>
-                </div>
-                <div class="chat-footer opacity-60 text-xs mt-1">
-                  {msg.role}
-                </div>
+          <div
+            id="svg-preview"
+            class="w-full flex justify-center items-center min-h-80 p-4 border rounded-lg bg-white"
+          >
+            <!-- server-rendered SVG preview -->
+            <div set:html={svg?.code_svg} />
+          </div>
+
+          <div class="flex gap-3 text-sm text-muted">
+            <div class="badge">ID: {svg?.id}</div>
+            <div class="badge">
+              Créé: {new Date(svg?.created || Date.now()).toLocaleDateString()}
+            </div>
+            <div class="badge">Visites: {svg?.visits || 0}</div>
+          </div>
+        </section>
+
+        <!-- Right: Product card -->
+        <aside class="flex flex-col gap-4">
+          <div class="card bg-base-100 shadow-md p-6">
+            <div class="flex justify-between items-start gap-4">
+              <div>
+                <h4 class="lg:text-2xl font-semibold mb-2">
+                  {svg?.name || "Lunettes personnalisées"}
+                </h4>
+                <p class="text-sm text-muted mt-1">
+                  {
+                    svg?.description ||
+                      "Design minimaliste, fabrication française."
+                  }
+                </p>
               </div>
-            ))
-          ) : (
-            <span class="text-error">Aucun historique de chat trouvé.</span>
-          )
-        }
+              <div class="text-right">
+                <div class="text-2xl font-extrabold">
+                  {svg?.prix ? `${svg.prix} €` : "99,00 €"}
+                </div>
+                <div class="text-sm text-muted">TVA incl.</div>
+              </div>
+            </div>
+
+            <div class="divider my-4"></div>
+
+            <div class="flex flex-col gap-3">
+
+              <div class="flex items-center gap-3">
+                <input
+                  id="quantity"
+                  type="number"
+                  min="1"
+                  value="1"
+                  class="input input-bordered w-24"
+                />
+                <button id="add-to-cart" class="btn btn-primary flex-1"
+                  >Ajouter au panier</button
+                >
+              </div>
+
+              <button id="buy-now" class="btn btn-accent"
+                >Acheter maintenant</button
+              >
+            </div>
+          </div>
+
+          <!-- Chat history card -->
+          <div
+            class="card bg-base-100 shadow p-4 overflow-y-auto max-h-[420px]"
+            id="chat-container"
+          >
+            <h3 class="font-bold mb-2">Historique de chat</h3>
+            <div id="chat-history" class="flex flex-col gap-4 p-2">
+              {
+                Array.isArray(history) && history.length > 0 ? (
+                  history.map((msg: { role: string; content: string }) => (
+                    <div
+                      class={`chat ${msg.role === "user" ? "chat-start" : "chat-end"}`}
+                    >
+                      <div
+                        class={`chat-bubble ${msg.role === "user" ? "bg-primary text-primary-content" : "bg-secondary text-secondary-content"}`}
+                      >
+                        <pre class="whitespace-pre-wrap">{msg.content}</pre>
+                      </div>
+                      <div class="chat-footer opacity-60 text-xs mt-1">
+                        {msg.role}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <span class="text-error">
+                    Aucun historique de chat trouvé.
+                  </span>
+                )
+              }
+            </div>
+          </div>
+        </aside>
       </div>
 
-      <div class="divider"></div>
-
-      <!-- Formulaire de prompt -->
+      <!-- Sticky prompt form (kept for quick edits) -->
       <form
         id="input-prompt-form"
-        class="flex flex-col gap-2 w-full fixed bottom-0 left-0 right-0 bg-base-300 p-4"
+        class="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-full max-w-3xl bg-base-300 p-4 rounded-lg shadow-lg flex gap-2 items-center"
         method="POST"
         autocomplete="off"
       >
         <input type="hidden" name="history" value={JSON.stringify(history)} />
         <input type="hidden" name="id" value={svg?.id} />
-        <div class="flex items-center gap-2">
-          <input
-            id="prompt-input"
-            name="editPrompt"
-            type="text"
-            class="input input-bordered flex-grow"
-            placeholder="Entrez votre prompt ici"
-            required
-          />
-          <button class="btn btn-primary" type="submit">Modifier</button>
-        </div>
+        <input
+          id="prompt-input"
+          name="editPrompt"
+          type="text"
+          class="input input-bordered grow"
+          placeholder="Entrez votre prompt ici"
+          required
+        />
+        <button class="btn btn-primary" type="submit">Modifier</button>
       </form>
-    </div>
+    </main>
 
     <script>
       //@ts-nocheck
@@ -133,8 +202,23 @@ if (Array.isArray(svg?.chat_history)) {
           body: JSON.stringify(messages),
         });
         const data = await res.json();
-        return data.svg.content || "";
+        return data.svg?.content || "";
       }
+
+      // Download SVG as file
+      document.getElementById("download-svg")?.addEventListener("click", () => {
+        const svgHtml = svgPreview.innerHTML || "";
+        if (!svgHtml) return alert("Aucun SVG à télécharger");
+        const blob = new Blob([svgHtml], { type: "image/svg+xml" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${svg?.nom || "lunettes"}.svg`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      });
 
       form?.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -145,7 +229,7 @@ if (Array.isArray(svg?.chat_history)) {
           content: formData.get("editPrompt"),
         };
 
-        let history = JSON.parse(formData.get("history"));
+        let history = JSON.parse(formData.get("history") || "[]");
         const svgId = formData.get("id");
         history.push(prompt);
 
@@ -153,6 +237,7 @@ if (Array.isArray(svg?.chat_history)) {
 
         svgPreview.innerHTML = `<span class="loading loading-ring loading-xl"></span>`;
 
+        // Append user message to chat
         chatHistory.innerHTML += `
                 <div class="chat chat-start">
                     <div class="chat-bubble bg-primary text-primary-content"><pre>${prompt.content}</pre></div>
@@ -184,17 +269,36 @@ if (Array.isArray(svg?.chat_history)) {
         }
 
         const response = await update({
-          id: svgId, // l'id de ton SVG
-          code_svg: svgPreview.innerHTML, // nouveau code SVG
-          chat_history: JSON.stringify(history), // historique mis à jour
+          id: svgId,
+          code_svg: svgPreview.innerHTML,
+          chat_history: JSON.stringify(history),
         });
 
-        if (response.success) {
-          alert("SVG updated successfully");
+        if (response?.success) {
+          // small non-intrusive toast (fallback to alert)
+          try {
+            window?.toast?.("SVG mis à jour");
+          } catch {
+            /* ignore */
+          }
         } else {
-          alert("Failed to update SVG: " + response.error);
+          alert(
+            "Échec de la mise à jour : " +
+              (response?.error || "Erreur inconnue")
+          );
         }
         form.reset();
+      });
+
+      // Add-to-cart / buy-now small handlers
+      document.getElementById("add-to-cart")?.addEventListener("click", () => {
+        const qty = Number(
+          (document.getElementById("quantity") as HTMLInputElement)?.value || 1
+        );
+        alert(`Ajouté au panier : ${qty} × ${svg?.nom || "Lunettes"}`);
+      });
+      document.getElementById("buy-now")?.addEventListener("click", () => {
+        alert("Redirection vers la caisse (simulation)");
       });
     </script>
   </body>
