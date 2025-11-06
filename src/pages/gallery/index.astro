@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
 import pb from "../../../pocketbase/pb";
 import { Collections } from "../../../pocketbase/pocketbase-types";
 
@@ -23,7 +24,6 @@ const svgList = listRes.items ?? [];
 
 <Layout>
   <main class="container mx-auto px-6 py-10">
-
     <!-- Hero -->
     <section class="flex flex-col items-center text-center mb-16">
       <h1 class="md:text-5xl lg:text-6xl font-extrabold text-primary mb-4">
@@ -50,42 +50,52 @@ const svgList = listRes.items ?? [];
     </section>
 
     <!-- Section modèles phares -->
-    <h2 class="md:text-4xl lg:text-5xl font-extrabold text-primary mb-10 text-left">
+    <h2
+      class="md:text-4xl lg:text-5xl font-extrabold text-primary mb-10 text-left"
+    >
       Modèle phare
     </h2>
-<section class="flex flex-col md:flex-row gap-8 bg-base-200 rounded-3xl shadow-lg p-6 md:p-10">
-            <div class="flex-1 flex justify-center hover:scale-[1.03] transition-transform">
-              <img
-                    src="/public/img/lunettes.svg"
-                    alt="Modèle Classic"
-                  />
-            </div>
+    <section
+      class="flex flex-col md:flex-row gap-8 bg-base-200 rounded-3xl shadow-lg p-6 md:p-10"
+    >
+      <div
+        class="flex-1 flex justify-center hover:scale-[1.03] transition-transform"
+      >
+        <Image
+          src="/public/img/lunettes.svg"
+          alt="Lunettes"
+          width="300"
+          height="300"
+          class="object-contain"
+          loading="lazy"
+        />
+      </div>
 
-            <div>
-              <h3 class="lg:text-3xl font-bold mb-3 text-primary">
-                Classic
-              </h3>
-              <p class="text-base lg:text-lg text-base-content/80 mb-4">
-                Créé le 04/10/2025 — Un design alliant technologie et élégance.
-              </p>
+      <div>
+        <h3 class="lg:text-3xl font-bold mb-3 text-primary">Classic</h3>
+        <p class="text-base lg:text-lg text-base-content/80 mb-4">
+          Créé le 04/10/2025 — Un design alliant technologie et élégance.
+        </p>
 
-              <p class="text-error text-sm mb-3 italic">
-                ⚡ Édition limitée – disponible pour une durée restreinte.
-              </p>
+        <p class="text-error text-sm mb-3 italic">
+          ⚡ Édition limitée – disponible pour une durée restreinte.
+        </p>
 
-              <div class="flex gap-3 flex-wrap">
-                <a
-                  class="btn btn-sm btn-accent text-accent-content"
-                  href={`/gallery/configurateur`}
-                >
-                  Personnaliser
-                </a>
-              </div>
-            </div>
-          </section>
+        <div class="flex gap-3 flex-wrap">
+          <a
+            class="btn btn-sm btn-accent text-accent-content"
+            href={`/gallery/configurateur`}
+          >
+            Personnaliser
+          </a>
+        </div>
+      </div>
+    </section>
 
     <!-- Galerie personnelle -->
-    <h2 class="md:text-4xl lg:text-5xl font-extrabold text-primary mt-20 mb-10 text-left">
+    <h2
+      class="md:text-4xl lg:text-5xl font-extrabold text-primary mt-20 mb-10 text-left"
+    >
       Vos créations
     </h2>
 
@@ -94,14 +104,16 @@ const svgList = listRes.items ?? [];
         const filtered = svgList.filter((s) => s.id !== "h9youvdeg5394ah");
         return filtered.length === 0 ? (
           <div class="alert alert-info text-center">
-            Aucune création enregistrée pour le moment.<br />
-            <span class="text-sm text-base-content/60">Commencez à personnaliser votre première paire !</span>
+            Aucune création enregistrée pour le moment.
+            <br />
+            <span class="text-sm text-base-content/60">
+              Commencez à personnaliser votre première paire !
+            </span>
           </div>
         ) : (
           <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filtered.map((s) => (
               <article class="card bg-white shadow-md hover:shadow-xl rounded-2xl overflow-hidden transform hover:-translate-y-1 transition-all duration-300 relative">
-
                 <div class="p-5 flex flex-col items-center text-center">
                   <div
                     class="w-full h-auto flex justify-center items-center bg-base-200 rounded-xl mb-4 hover:scale-[1.05] transition-transform duration-300"
@@ -148,7 +160,9 @@ const svgList = listRes.items ?? [];
     <!-- 💡 Nudge : Preuve sociale répétée -->
     <div class="text-center mt-20 text-base-content/70">
       <p class="text-sm">
-        🧠 Déjà <span class="text-primary font-semibold">plus de 300 lunettes</span> générées par nos utilisateurs.
+        🧠 Déjà <span class="text-primary font-semibold"
+          >plus de 300 lunettes</span
+        > générées par nos utilisateurs.
       </p>
       <p class="text-xs italic mt-1">
         “Rejoignez le mouvement, créez la vôtre.”
