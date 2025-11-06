@@ -46,14 +46,18 @@ import { Image } from "astro:assets";
         </ul>
       </div>
 
-      <Image
-        src="/public/icon/logo.png"
-        alt="TaVue logo"
-        width={24}
-        height={10}
-        class="w-24 h-10 lg:w-36 lg:h-16 object-contain"
-        loading="lazy"
-      />
+      
+      <a href="/accueil" aria-label="Aller à l'accueil">
+        <Image
+          src="/public/icon/logo.png"
+          alt="TaVue logo"
+          width={24}
+          height={10}
+          class="w-24 h-10 lg:w-36 lg:h-16 object-contain"
+          loading="lazy"
+        />
+      </a>
+
     </div>
 
     <div class="navbar-center hidden lg:flex">

@@ -1,0 +1,201 @@
+---
+//@ts-nocheck
+import "../../styles/global.css";
+import Header from "../../components/Header.astro";
+import pb from "../../../pocketbase/pb";
+import {
+  Collections,
+  type SvgsRecord,
+} from "../../../pocketbase/pocketbase-types";
+
+const id = Astro.params.id;
+const svg: SvgsRecord = await pb.collection(Collections.Lunette).getOne(id);
+
+// Parse de l'historique stocké (string → tableau)
+let history = [];
+if (Array.isArray(svg?.chat_history)) {
+  history = svg.chat_history;
+} else {
+  try {
+    history = JSON.parse(svg?.chat_history || "[]");
+  } catch {
+    history = [];
+  }
+}
+---
+
+<html lang="fr" data-theme="SAE301">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>
+      TaVue – Crée tes lunettes personnalisées | Style & Fabrication française
+    </title>
+    <meta
+      name="description"
+      content="Configurez vos lunettes sur mesure, visualisez-les en temps réel et commandez-les. Élégance minimaliste, fabrication française."
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "TaVue",
+        "url": "https://sae301.eva-lacroix.fr",
+        "description": "Site pour configurer des lunettes personnalisées en ligne.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0.00",
+          "priceCurrency": "EUR",
+          "description": "Configuration gratuite."
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <Header />
+    <div class="flex flex-col h-screen">
+      <div
+        class="bg-base-200 h-1/2 flex flex-col justify-center items-center p-4"
+      >
+        <h2 class="text-lg font-bold mb-2">Aperçu de la création</h2>
+        <div id="svg-preview" class="w-full flex justify-center">
+          <div set:html={svg?.code_svg} />
+        </div>
+      </div>
+
+      <div class="divider">Historique de chat</div>
+
+      <div
+        id="chat-history"
+        class="flex flex-col gap-4 w-full mb-20 overflow-y-auto flex-grow p-4"
+      >
+        {
+          Array.isArray(history) && history.length > 0 ? (
+            history.map((msg: { role: string; content: string }) => (
+              <div
+                class={`chat ${msg.role === "user" ? "chat-start" : "chat-end"}`}
+              >
+                <div
+                  class={`chat-bubble ${msg.role === "user" ? "bg-primary text-primary-content" : "bg-secondary text-secondary-content"}`}
+                >
+                  <pre class="whitespace-pre-wrap">{msg.content}</pre>
+                </div>
+                <div class="chat-footer opacity-60 text-xs mt-1">
+                  {msg.role}
+                </div>
+              </div>
+            ))
+          ) : (
+            <span class="text-error">Aucun historique de chat trouvé.</span>
+          )
+        }
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Formulaire de prompt -->
+      <form
+        id="input-prompt-form"
+        class="flex flex-col gap-2 w-full fixed bottom-0 left-0 right-0 bg-base-300 p-4"
+        method="POST"
+        autocomplete="off"
+      >
+        <input type="hidden" name="history" value={JSON.stringify(history)} />
+        <input type="hidden" name="id" value={svg?.id} />
+        <div class="flex items-center gap-2">
+          <input
+            id="prompt-input"
+            name="editPrompt"
+            type="text"
+            class="input input-bordered flex-grow"
+            placeholder="Entrez votre prompt ici"
+            required
+          />
+          <button class="btn btn-primary" type="submit">Modifier</button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      //@ts-nocheck
+      const form = document.getElementById("input-prompt-form");
+      const svgPreview = document.getElementById("svg-preview");
+      const chatHistory = document.getElementById("chat-history");
+
+      async function generateSVG(messages) {
+        const res = await fetch("/api2/generateSVG", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(messages),
+        });
+        const data = await res.json();
+        return data.svg.content || "";
+      }
+
+      form?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+
+        let prompt = {
+          role: "user",
+          content: formData.get("editPrompt"),
+        };
+
+        let history = JSON.parse(formData.get("history"));
+        const svgId = formData.get("id");
+        history.push(prompt);
+
+        document.getElementById("prompt-input").value = "";
+
+        svgPreview.innerHTML = `<span class="loading loading-ring loading-xl"></span>`;
+
+        chatHistory.innerHTML += `
+                <div class="chat chat-start">
+                    <div class="chat-bubble bg-primary text-primary-content"><pre>${prompt.content}</pre></div>
+                    <div class="chat-footer opacity-60 text-xs mt-1">user</div>
+                </div>
+            `;
+
+        let aiResponse = await generateSVG(history);
+        history.push({ role: "assistant", content: aiResponse });
+
+        const svgMatch = aiResponse.match(/<svg[\s\S]*?<\/svg>/i);
+        const svgCode = svgMatch ? svgMatch[0] : "";
+
+        svgPreview.innerHTML = svgCode;
+        chatHistory.innerHTML += `
+                <div class="chat chat-end">
+                    <div class="chat-bubble bg-secondary text-secondary-content"><pre>${svgCode}</pre></div>
+                    <div class="chat-footer opacity-60 text-xs mt-1">assistant</div>
+                </div>
+            `;
+
+        async function update(updatedData) {
+          const response = await fetch("/api2/update", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedData),
+          });
+          return await response.json();
+        }
+
+        const response = await update({
+          id: svgId, // l'id de ton SVG
+          code_svg: svgPreview.innerHTML, // nouveau code SVG
+          chat_history: JSON.stringify(history), // historique mis à jour
+        });
+
+        if (response.success) {
+          alert("SVG updated successfully");
+        } else {
+          alert("Failed to update SVG: " + response.error);
+        }
+        form.reset();
+      });
+    </script>
+  </body>
+</html>

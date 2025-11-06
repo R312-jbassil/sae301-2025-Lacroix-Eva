@@ -1,0 +1,187 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import pb from "../../../pocketbase/pb";
+import { Collections } from "../../../pocketbase/pocketbase-types";
+
+const user = Astro.locals.user;
+
+const perPage = 9;
+let listRes;
+if (user && user.id) {
+  listRes = await pb.collection(Collections.Lunette).getList(1, perPage, {
+    sort: "-created",
+    filter: `user = "${user.id}"`,
+  });
+} else {
+  listRes = await pb
+    .collection(Collections.Lunette)
+    .getList(1, perPage, { sort: "-created" });
+}
+
+const svgList = listRes.items ?? [];
+---
+
+<Layout>
+  <main class="container mx-auto px-6 py-10">
+
+    <!-- Hero -->
+    <section class="flex flex-col items-center text-center mb-16">
+      <h1 class="md:text-5xl lg:text-6xl font-extrabold text-primary mb-4">
+        Collection Visionnaire
+      </h1>
+      <p class="text-sm lg:text-lg text-base-content/80 mb-6 max-w-2xl">
+        Explorez vos créations — des montures uniques, façonnées par
+        l’intelligence artificielle et votre imagination.
+      </p>
+
+      <a
+        href="/generator"
+        class="btn btn-primary btn-wide shadow-md hover:shadow-lg transition"
+      >
+        Générer une nouvelle paire
+      </a>
+
+      <!-- 💡 Nudge : Réassurance -->
+      <div class="mt-4 flex items-center gap-2 text-xs text-base-content/70">
+        <span class="inline-flex items-center gap-1">
+          🔒 Connexion sécurisée — données protégées
+        </span>
+      </div>
+    </section>
+
+    <!-- Section modèles phares -->
+    <h2 class="md:text-4xl lg:text-5xl font-extrabold text-primary mb-10 text-left">
+      Modèle phare
+    </h2>
+    {
+      (() => {
+        const target = svgList.find((s) => s.id === "h9youvdeg5394ah");
+        return !target ? (
+          <div class="alert alert-info">Aucun modèle trouvé.</div>
+        ) : (
+          <section class="flex flex-col md:flex-row gap-8 bg-base-200 rounded-3xl shadow-lg p-6 md:p-10">
+            <div class="flex-1 flex justify-center hover:scale-[1.03] transition-transform" set:html={target.code_svg} />
+            <div>
+              <h3 class="lg:text-3xl font-bold mb-3 text-primary">
+                {target.name || "Modèle exclusif"}
+              </h3>
+              <p class="text-base lg:text-lg text-base-content/80 mb-4">
+                Créé le {new Date(target.created).toLocaleDateString()} — Un
+                design alliant technologie et élégance.
+              </p>
+
+              <!-- 💡 Nudge : Rareté -->
+              <p class="text-error text-sm mb-3 italic">
+                ⚡ Édition limitée – disponible pour une durée restreinte.
+              </p>
+
+              <div class="flex gap-3 flex-wrap">
+                <a
+                  class="btn btn-sm btn-outline"
+                  href={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(target.code_svg)}`}
+                  download={`${(target.name || "svg").replace(/\s+/g, "_")}.svg`}
+                >
+                  Télécharger
+                </a>
+                <a
+                  class="btn btn-sm btn-accent text-accent-content"
+                  href={`/gallery/modele/${target.id}`}
+                >
+                  Modifier
+                </a>
+              </div>
+            </div>
+          </section>
+        );
+      })()
+    }
+
+    <!-- Galerie personnelle -->
+    <h2 class="md:text-4xl lg:text-5xl font-extrabold text-primary mt-20 mb-10 text-left">
+      Vos créations
+    </h2>
+
+    {
+      (() => {
+        const filtered = svgList.filter((s) => s.id !== "h9youvdeg5394ah");
+        return filtered.length === 0 ? (
+          <div class="alert alert-info text-center">
+            Aucune création enregistrée pour le moment.<br />
+            <span class="text-sm text-base-content/60">Commencez à personnaliser votre première paire !</span>
+          </div>
+        ) : (
+          <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filtered.map((s) => (
+              <article class="card bg-white shadow-md hover:shadow-xl rounded-2xl overflow-hidden transform hover:-translate-y-1 transition-all duration-300 relative">
+
+                <div class="p-5 flex flex-col items-center text-center">
+                  <div
+                    class="w-full h-auto flex justify-center items-center bg-base-200 rounded-xl mb-4 hover:scale-[1.05] transition-transform duration-300"
+                    set:html={s.code_svg}
+                  />
+                  <h3 class="text-xl font-semibold mb-1">
+                    {s.name || "Sans titre"}
+                  </h3>
+                  <p class="text-sm text-base-content/70 mb-3">
+                    {new Date(s.created).toLocaleDateString()}
+                  </p>
+
+                  <div class="flex flex-wrap justify-center gap-2">
+                    <button
+                      type="button"
+                      class="btn btn-xs btn-outline copy-btn"
+                      data-code={s.code_svg}
+                      aria-label="Copier le code SVG"
+                    >
+                      Copier
+                    </button>
+                    <a
+                      class="btn btn-xs btn-primary"
+                      href={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(s.code_svg)}`}
+                      download={`${(s.name || "svg").replace(/\s+/g, "_")}.svg`}
+                    >
+                      Télécharger
+                    </a>
+                    <a
+                      class="btn btn-xs btn-accent text-accent-content"
+                      href={`/gallery/${s.id}`}
+                    >
+                      Modifier
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </section>
+        );
+      })()
+    }
+
+    <!-- 💡 Nudge : Preuve sociale répétée -->
+    <div class="text-center mt-20 text-base-content/70">
+      <p class="text-sm">
+        🧠 Déjà <span class="text-primary font-semibold">plus de 300 lunettes</span> générées par nos utilisateurs.
+      </p>
+      <p class="text-xs italic mt-1">
+        “Rejoignez le mouvement, créez la vôtre.”
+      </p>
+    </div>
+  </main>
+</Layout>
+
+<script type="module">
+  document.querySelectorAll(".copy-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const code = btn.getAttribute("data-code") || "";
+      try {
+        await navigator.clipboard.writeText(code);
+        const original = btn.textContent;
+        btn.textContent = "Copié ✓";
+        setTimeout(() => (btn.textContent = original), 1500);
+      } catch (err) {
+        btn.textContent = "Erreur";
+        setTimeout(() => (btn.textContent = "Copier"), 1500);
+      }
+    });
+  });
+</script>
