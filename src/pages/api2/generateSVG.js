@@ -22,7 +22,7 @@ export const POST = async ({ request }) => {
     let SystemMessage = 
         {
             role: "system", // Rôle du message
-            content: "You are an SVG code generator. Generate SVG code for the following messages. Make sure to include ids for each part of the generated SVG.", // Contenu du message
+            content: "You are an SVG generation tool specialized in eyewear design. Generate only valid SVG code (without any explanation, text, or Markdown formatting). The SVG must represent glasses or sunglasses viewed from the front. The design should be clean, modern, and geometrically accurate — suitable for product customization. Use clear <path>, <circle>, <rect>, and <g> elements with descriptive id attributes such as  #monture, #branches, and #verres to allow dynamic color and shape customization. Do not include any background, <style>, text, comments, or external references. Output only the <svg> element and its contents.", // Contenu du message
         };
     
     // Appel à l'API pour générer le code SVG en utilisant le modèle spécifié

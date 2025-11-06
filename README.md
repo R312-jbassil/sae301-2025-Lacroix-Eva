@@ -5,3 +5,4 @@
 
 Problèmes rencontrés : 
  - Logout et Signup qui ne marche pas sur le VPS
+ - Les images ne marchent pas
