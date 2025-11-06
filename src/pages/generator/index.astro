@@ -31,8 +31,8 @@ const user = Astro.locals.user;
         "operatingSystem": "Web",
         "offers": {
           "@type": "Offer",
-          "price": "0.00",
-          "priceCurrency": "EUR",
+          "prix": "0.00",
+          "prixCurrency": "EUR",
           "description": "Configuration gratuite."
         }
       }
@@ -110,6 +110,14 @@ const user = Astro.locals.user;
                   class="input input-bordered flex-1"
                   placeholder="Nom du design"
                 />
+                <input
+                  id="save-prix"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  class="input input-bordered w-14"
+                  placeholder="Prix €"
+                />
                 <button id="save-button" class="btn btn-secondary"
                   >Enregistrer</button
                 >
@@ -158,6 +166,7 @@ const user = Astro.locals.user;
         const downloadLink = document.getElementById("download-svg");
         const copyBtn = document.getElementById("copy-svg");
         const saveName = document.getElementById("save-name");
+        const savePrix = document.getElementById("save-prix");
 
         let promptList = [];
 
@@ -243,7 +252,7 @@ const user = Astro.locals.user;
           }
         });
 
-        // Save generated SVG to backend
+        // Save generated SVG to backend (ajout du prix)
         async function saveSVG() {
           const code = svgContainer.querySelector("svg")
             ? svgContainer.querySelector("svg").outerHTML
@@ -252,6 +261,7 @@ const user = Astro.locals.user;
               : "";
           if (!code) return alert("Aucun SVG à sauvegarder.");
           const name = saveName?.value || prompt("Nom du design") || "design";
+          const prix = savePrix && savePrix.value ? parseFloat(savePrix.value) : null;
 
           const user = (() => {
             try {
@@ -264,6 +274,7 @@ const user = Astro.locals.user;
           const params = {
             name: name,
             code_svg: code,
+            prix: prix, // nouveau champ prix
             chat_history: JSON.stringify(promptList),
             user: user?.id ?? null,
           };
