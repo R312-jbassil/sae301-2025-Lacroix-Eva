@@ -46,18 +46,16 @@ import { Image } from "astro:assets";
         </ul>
       </div>
 
-      
       <a href="/accueil" aria-label="Aller à l'accueil">
         <Image
           src="/public/icon/logo.png"
-          alt="TaVue logo"
+          alt="Logo TaVue"
           width={24}
           height={10}
-          class="w-24 h-10 lg:w-36 lg:h-16 object-contain"
+          class="w-24 lg:w-28 object-contain"
           loading="lazy"
         />
       </a>
-
     </div>
 
     <div class="navbar-center hidden lg:flex">
@@ -65,14 +63,14 @@ import { Image } from "astro:assets";
         <li>
           <a
             href="/generator"
-            class="btn btn-ghost rounded text-2xl hover:bg-secondary hover:text-secondary-content"
+            class="btn btn-ghost rounded text-xl font-semibold hover:bg-secondary hover:text-secondary-content hover:font-bold"
             >Créer ma paire</a
           >
         </li>
         <li>
           <a
             href="/gallery"
-            class="btn btn-ghost rounded text-2xl hover:bg-secondary hover:text-secondary-content"
+            class="btn btn-ghost rounded text-xl font-semibold hover:bg-secondary hover:text-secondary-content hover:font-bold"
             >Galerie</a
           >
         </li>
@@ -83,7 +81,7 @@ import { Image } from "astro:assets";
       <form method="POST" action="/api2/logout">
         <button
           type="submit"
-          class="btn btn-outline btn-xl bg-accent text-accent-content"
+          class="btn btn-outline btn-lg bg-accent text-accent-content"
           >Déconnexion</button
         >
       </form>
